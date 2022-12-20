@@ -25,7 +25,7 @@ CREATE TABLE Countries (
 CREATE TABLE Hotels (
 	Id SERIAL PRIMARY KEY,
 	Hotel varchar(30) NOT NULL UNIQUE,
-	City varchar(30) NOT NULL,
+	City varchar(30) NOT NULL
 );
 
 CREATE TABLE Fields (
