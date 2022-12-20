@@ -1,7 +1,7 @@
 SELECT r.Name, r.DateOfPublishment,
 	(SELECT STRING_AGG(CONCAT(sc.LastName, ',', LEFT(sc.FirstName, 1)), ';') FROM Scientists sc
 	WHERE sc.Id IN
-	(SELECT sc.Id FROM Signature s
+	(SELECT s.ScientistId FROM Signature s
 	WHERE s.ResearchId = r.Id)) AS Scientists 
 FROM Researches r;
 
@@ -17,7 +17,7 @@ JOIN Countries c ON c.Id = sc.CountryId;
 
 SELECT p.Project,
 COALESCE(CAST(
-	(SELECT a.Name FROM Accelerators a
+	(SELECT STRING_AGG(a.Name, '; ') FROM Accelerators a
 	 	JOIN AcceleratorProject ap ON a.Id = ap.AcceleratorId
 		WHERE ap.ProjectId = p.Id) AS VARCHAR), 'NEMA GA') AS Accelerator
 FROM Projects p;
@@ -39,7 +39,6 @@ JOIN Scientists s ON s.CountryId = c.Id
 JOIN Signature sg ON sg.ScientistId = s.Id
 JOIN Researches r ON r.Id = sg.ResearchId
 GROUP BY c.Country;
-
 
 
 SELECT DISTINCT h.City, COUNT(*) AS Scientists_Living FROM Hotels h
