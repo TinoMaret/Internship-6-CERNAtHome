@@ -51,3 +51,8 @@ JOIN AcceleratorProject ap ON ap.AcceleratorId = a.Id
 JOIN Projects p ON p.Id = ap.ProjectId
 JOIN Researches r ON r.ProjectId = p.Id
 GROUP BY a.Name;
+
+SELECT f.Field, DATE_PART('decade', s.DateOfBirth) AS Desetljece, s.Gender, s.FirstName, s.LastName FROM Scientists s
+JOIN Fields f ON f.Id = s.FieldId
+GROUP BY f.Field, Desetljece, s.Gender, s.FirstName, s.LastName
+ORDER BY Desetljece;
